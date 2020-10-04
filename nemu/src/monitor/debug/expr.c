@@ -165,9 +165,9 @@ int find_dominant_op(int p ,int q)
 			if(tokens[j].type == ')')  num--;
 		}
 		if (!flag)  continue;
-		if(token[i].priority <= minpriority)
+		if(tokens[i].priority <= minpriority)
 		{
-			minpriority = token[i].priority;
+			minpriority = tokens[i].priority;
 			oper = i;	
 		}
 
@@ -197,7 +197,7 @@ int eval(int p,int q)
 
 
 
-
+	return 0;
 
 
 }
