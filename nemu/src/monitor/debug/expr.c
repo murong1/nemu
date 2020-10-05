@@ -25,7 +25,7 @@ static struct rule {
 	/* TODO: Add more rules.
 	 * Pay attention to the precedence level of different rules.
 	 */
-	{"\\b[0-9]\\b",NUMBER,1},                             //number
+	{"\\b[0-9]+\\b",NUMBER,1},                             //number
 	{"\\b0[xX][0-9a-fA-F]\\b",_16NUMBER,1},                        //16 number
 	{"[%$][eE]?(ax|bx|cx|dx|bp|si|di|sp)",REGISTER,1},       //register
 	{"\\b[a-zA-Z_0-9]",VARIES,1},                               //varies
