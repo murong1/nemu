@@ -259,6 +259,7 @@ int eval(int p,int q)
 		//return 0;
 		int val1 = eval(p,op-1);
 		int val2 = eval(op+1,q);
+		printf("fenzhi %d,%d",val1,val2);
 		switch(tokens[op].type)
 		{
 			case '+': return val1+val2;
