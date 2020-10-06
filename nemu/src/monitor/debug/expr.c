@@ -147,13 +147,14 @@ bool check_parentheses(int p, int q)
 
 int find_dominant_op(int p ,int q)
 {
-	printf("find op");
+	//printf("find op");
 	int i = 0,j = 0;
 	int minpriority = 10;
  	int oper = p;
 	for(i=p;i<=q;i++)
 	{
-		if(tokens[i].type == 1) continue;
+		if(tokens[i].type == NUMBER || tokens[i].type == _16NUMBER ||tokens[i].type == REGISTER || tokens[i].type == VARIES)
+			continue;
 		
 		int num = 0;
 		bool flag = 1;
