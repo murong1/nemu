@@ -158,7 +158,7 @@ int find_dominant_op(int p ,int q)
 		
 		int num = 0;
 		bool flag = 1;
-		for(j=i;j>=i;j--)
+		for(j=i-1;j>=i;j--)
 		{
 			if(tokens[j].type == '('&&!num)
 			{
