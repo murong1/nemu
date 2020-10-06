@@ -240,9 +240,9 @@ int eval(int p,int q)
 	}
 	else if(check_parentheses(p,q) != 1)
 	{
-		printf("shizhe?");
+		printf("shizhe?\n");
 		int op = find_dominant_op(p,q);
-		printf("op is %d",tokens[op].type);
+		printf("op is %d\n",tokens[op].type);
 		if(p == op||tokens[op].type == FU || tokens[op].type == POINT ||tokens[op].type == '!')
 		{
 			int val = eval(p+1,q);
