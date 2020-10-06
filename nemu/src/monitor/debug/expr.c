@@ -147,6 +147,7 @@ bool check_parentheses(int p, int q)
 
 int find_dominant_op(int p ,int q)
 {
+	printf("find op");
 	int i = 0,j = 0;
 	int minpriority = 10;
  	int oper = p;
