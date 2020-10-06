@@ -242,7 +242,7 @@ int eval(int p,int q)
 	{
 		//printf("shizhe?\n");
 		int op = find_dominant_op(p,q);
-		printf("%d %d",p,q);
+		//printf("%d %d",p,q);
 		//printf("op is %d\n",tokens[op].type);
 		if(p == op||tokens[op].type == FU || tokens[op].type == POINT ||tokens[op].type == '!')
 		{
