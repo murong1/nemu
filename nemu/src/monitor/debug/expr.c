@@ -240,6 +240,7 @@ int eval(int p,int q)
 	}
 	else if(check_parentheses(p,q) != 1)
 	{
+		printf("shizhe?");
 		int op = find_dominant_op(p,q);
 		if(p == op||tokens[op].type == FU || tokens[op].type == POINT ||tokens[op].type == '!')
 		{
