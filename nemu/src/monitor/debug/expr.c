@@ -153,7 +153,7 @@ int find_dominant_op(int p ,int q)
  	int oper = p;
 	for(i=p;i<=q;i++)
 	{
-		if(tokens[i].type == NUMBER || tokens[i].type == _16NUMBER ||tokens[i].type == REGISTER || tokens[i].type == VARIES)
+		if(tokens[i].priority == 1)
 			continue;
 		
 		int num = 0;
