@@ -163,8 +163,8 @@ int find_dominant_op(int p ,int q)
 				flag = 0;
 				break;
 			}
-			if(tokens[j].type == '(')  num++;
-			if(tokens[j].type == ')')  num--;
+			if(tokens[j].type == '(')  num--;
+			if(tokens[j].type == ')')  num++;
 		}
 		if (!flag)  continue;
 		if(tokens[i].priority <= minpriority)
@@ -256,7 +256,7 @@ int eval(int p,int q)
 			}
 			
 		}
-		return 0;
+		//return 0;
 		int val1 = eval(p,op-1);
 		int val2 = eval(op+1,q);
 		switch(tokens[op].type)
