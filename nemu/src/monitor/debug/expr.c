@@ -270,7 +270,12 @@ int eval(int p,int q)
 			case Logical_OR : return val1||val2;
 		}
 	}
-	else return eval(p+1,q-1);
+	else 
+	{
+		printf("tuoke");
+		return eval(p+1,q-1);
+		
+	}
 	printf("zhecuole?");
 	Assert(1,"?");
 	return 0;
