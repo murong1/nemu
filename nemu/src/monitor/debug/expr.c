@@ -170,7 +170,8 @@ int find_dominant_op(int p ,int q)
 		if(tokens[i].priority <= minpriority)
 		{
 			minpriority = tokens[i].priority;
-			oper = i;	
+			oper = i;
+			printf("%d",i);	
 		}
 
 	}	
