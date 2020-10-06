@@ -40,6 +40,7 @@ static int cmd_help(char *args);
 static int cmd_si(char *args);
 static int cmd_info(char *args);
 static int cmd_x(char *args);
+static int cmd_p(char *args);
 static struct {
 	char *name;
 	char *description;
@@ -51,12 +52,22 @@ static struct {
 	{ "si","After N single-step execution, if the N is not given, the default is 1.",cmd_si},
 	{ "info","Print register status OR Print Monitor Point Information",cmd_info},
 	{ "x","Scanning memory",cmd_x},
-
+	{ "p","printf",cmd_p},
 
 
 	/* TODO: Add more commands */
 
 };
+static int cmd_p(char *args)
+{
+	int num;
+	bool suc;
+	num = expr(args,&suc);
+	if(suc)
+		printf("%d\n",num);
+	return 0;
+}
+
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
 static int cmd_si(char *args){

@@ -5,9 +5,11 @@
  */
 #include <sys/types.h>
 #include <regex.h>
-
+enum { EAX,ECX,EDX,EBX,ESP,EBP,ESI,EDI};
+enum {AX,CX,DX,BX,SP,BP,SI,DI};
+enum {AL,CL,DL,BL,AH,CH,DH,BH};
 enum {
-	NOTYPE = 256,EQ,UEQ,Logical_AND,Logical_OR,Logical_NOT,REGISTER,VARIES,NUMBER,_16NUMBER,HEX
+	NOTYPE = 256,EQ,UEQ,Logical_AND,Logical_OR,Logical_NOT,REGISTER,VARIES,NUMBER,_16NUMBER,HEX,FU,POINT
 
 	/* TODO: Add more token types */
 
@@ -23,11 +25,11 @@ static struct rule {
 	/* TODO: Add more rules.
 	 * Pay attention to the precedence level of different rules.
 	 */
-	{"[0-9]",NUMBER,1},                             //number
-	{"0[xX][0-9a-fA-F]",_16NUMBER,1},                        //16 number
+	{"\\b[0-9]+\\b",NUMBER,1},                             //number
+	{"\\b0[xX][0-9a-fA-F]+\\b",_16NUMBER,1},                        //16 number
 	{"[%$][eE]?(ax|bx|cx|dx|bp|si|di|sp)",REGISTER,1},       //register
-	{"[a-zA-Z_0-9]",VARIES,1},                               //varies
-	{" +",	NOTYPE,1},				// spaces
+	{"\\b[a-zA-Z_0-9]",VARIES,1},                               //varies
+	{" ",	NOTYPE,1},				// spaces
 	{"	",NOTYPE,1},                         //taps
 	{"\\|\\|",Logical_OR,2},                   //or
 	{"&&",Logical_AND,3},                         //and
@@ -127,7 +129,7 @@ static bool make_token(char *e) {
 
 	return true; 
 }
-bool check_parebtheses(int p, int q)
+bool check_parentheses(int p, int q)
 {
 	if(tokens[p].type != '(' || tokens[q].type != ')')   return false;
 	int i=0,mark=0;
@@ -154,7 +156,7 @@ int find_dominant_op(int p ,int q)
 		
 		int num = 0;
 		bool flag = 1;
-		for(j=i-1;j>=i;j--)
+		for(j=i;j>=i;j--)
 		{
 			if(tokens[j].type == '('&&!num)
 			{
@@ -165,9 +167,9 @@ int find_dominant_op(int p ,int q)
 			if(tokens[j].type == ')')  num--;
 		}
 		if (!flag)  continue;
-		if(token[i].priority <= minpriority)
+		if(tokens[i].priority <= minpriority)
 		{
-			minpriority = token[i].priority;
+			minpriority = tokens[i].priority;
 			oper = i;	
 		}
 
@@ -177,8 +179,8 @@ int find_dominant_op(int p ,int q)
 
 int eval(int p,int q)
 {
-	int value;
-	if(p>q) assert(0);
+	int value=0;
+	if(p>q) Assert(1,"?");
 	if(p==q)
 	{
 		if(tokens[p].type == NUMBER)
@@ -191,13 +193,92 @@ int eval(int p,int q)
 			sscanf(tokens[p].str,"%x",&value);
 			return value;
 		}
+		if(tokens[p].type == REGISTER)
+		{
+			if(strlen(tokens[p].str) == 3)
+			{
+				int i=0;
+				for(i = EAX;i <= EDI;i++)
+				{
+					if(strcmp(tokens[p].str,regsl[i]) == 0)
+						break;
+				}
+				if(i > EDI)
+				{
+					if(strcmp(tokens[p].str,"eip")==0)
+						value = cpu.eip;
+					else Assert(1,"?");
+				}
+				else value = reg_l(i);
+			}
+			else if(strlen(tokens[p].str)==2)
+			{
+				if(tokens[p].str[1] == 'x' || tokens[p].str[1] == 'p' || tokens[p].str[1] == 'i' )
+				{
+					int i=0;
+					for(i=AX;i <= DI;i++)
+						if (strcmp(tokens[p].str,regsw[i]) == 0)
+							break;
+					value = reg_w(i);
+				}
+				if(tokens[p].str[1] == 'l' || tokens[p].str[1] == 'h')
+				{
+					int i=0;
+					for(i = AL;i <= BH; i++)
+						if(strcmp(tokens[p].str,regsb[i]) == 0)
+							break;
+					value = reg_b(i);
+				}
+				else Assert(1,"?");
+			}
+			return value;
+		}
+		if(tokens[p].type == VARIES)
+		{
+			printf("%s",tokens[p].str);
+		}
 	}
-
-
-
-
-
-
+	else if(check_parentheses(p,q) != 1)
+	{
+		printf("shizhe?\n");
+		int op = find_dominant_op(p,q);
+		printf("op is %d\n",tokens[op].type);
+		if(p == op||tokens[op].type == FU || tokens[op].type == POINT ||tokens[op].type == '!')
+		{
+			int val = eval(p+1,q);
+			switch(tokens[op].type)
+			{
+				case FU: return -val;
+				case POINT: return swaddr_read(val,4);
+				case '!':return !val;
+				default : Assert(1,"?");
+			}
+			
+		}
+		
+		int val1 = eval(p,op-1);
+		int val2 = eval(op+1,q);
+		switch(tokens[op].type)
+		{
+			case '+': return val1+val2;
+			case '*': return val1*val2;
+			case '-': return val1-val2;
+			case '/': return val1/val2;
+			case EQ: return val1 == val2;
+			case UEQ: return val1!=val2;
+			case Logical_AND: return val1&&val2;
+			case Logical_OR : return val1||val2;
+		}
+	}
+	else 
+	{
+		printf("tuoke\n");
+		return eval(p+1,q-1);
+		
+	}
+	printf("zhecuole?\n");
+	Assert(1,"?");
+	return 0;
 
 
 }
@@ -208,9 +289,27 @@ uint32_t expr(char *e, bool *success) {
 		*success = false;
 		return 0;
 	}
+	int i;
+
+	for(i=0;i<nr_token;i++)
+	{	
+		bool a = (i == 0 || ((tokens[i-1].type != NUMBER )&&(tokens[i-1].type != _16NUMBER) &&(tokens[i-1].type != REGISTER) && (tokens[i-1].type != VARIES)&&(tokens[i-1].type != ')')));
+		if(tokens[i].type == '*'&& a)
+		{
+			tokens[i].type = POINT;
+			tokens[i].priority = 6;
+		}
+		if(tokens[i].type == '-'&&a )
+		{
+			tokens[i].type = FU;
+			tokens[i].priority = 6;
+
+		}
+	}
 
 	/* TODO: Insert codes to evaluate the expression. */
-	panic("please implement me");
-	return 0;
+	//panic("please implement me");
+	*success = true;
+	return eval(0,nr_token-1);
 }
 
