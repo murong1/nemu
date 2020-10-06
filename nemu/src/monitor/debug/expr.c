@@ -276,7 +276,7 @@ int eval(int p,int q)
 		return eval(p+1,q-1);
 		
 	}
-	printf("zhecuole?");
+	printf("zhecuole?\n");
 	Assert(1,"?");
 	return 0;
 
