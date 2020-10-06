@@ -244,7 +244,7 @@ int eval(int p,int q)
 	}
 	else if(check_parentheses(p,q) != 1)
 	{
-		printf("shizhe?\n");
+		//printf("shizhe?\n");
 		int op = find_dominant_op(p,q);
 		//printf("%d %d",p,q);
 		printf("op is %d\n",tokens[op].type);
@@ -263,7 +263,7 @@ int eval(int p,int q)
 		//return 0;
 		int val1 = eval(p,op-1);
 		int val2 = eval(op+1,q);
-		printf("fenkai %d,%d\n",val1,val2);
+		//printf("fenkai %d,%d\n",val1,val2);
 		switch(tokens[op].type)
 		{
 			case '+': return val1+val2;
@@ -278,11 +278,11 @@ int eval(int p,int q)
 	}
 	else 
 	{
-		printf("tuoke\n");
+		//printf("tuoke\n");
 		return eval(p+1,q-1);
 		
 	}
-	printf("zhecuole?\n");
+	//printf("zhecuole?\n");
 	Assert(1,"?");
 	return 0;
 
