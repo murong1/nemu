@@ -173,7 +173,7 @@ int find_dominant_op(int p ,int q)
 		{
 			minpriority = tokens[i].priority;
 			oper = i;
-			printf("%d\n",i);	
+			//printf("%d\n",i);	
 		}
 
 	}	
@@ -247,7 +247,7 @@ int eval(int p,int q)
 		//printf("shizhe?\n");
 		int op = find_dominant_op(p,q);
 		//printf("%d %d",p,q);
-		printf("op is %d\n",tokens[op].type);
+		//printf("op is %d\n",tokens[op].type);
 		if(p == op||tokens[op].type == FU || tokens[op].type == POINT ||tokens[op].type == '!')
 		{
 			int val = eval(p+1,q);
