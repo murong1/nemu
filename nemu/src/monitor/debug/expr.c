@@ -272,7 +272,7 @@ int eval(int p,int q)
 	}
 	else 
 	{
-		printf("tuoke");
+		printf("tuoke\n");
 		return eval(p+1,q-1);
 		
 	}
