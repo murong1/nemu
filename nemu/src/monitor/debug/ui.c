@@ -8,7 +8,7 @@
 #include <readline/history.h>
 
 void cpu_exec(uint32_t);
-
+int breakpoint_counter=1;
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 char* rl_gets() {
 	static char *line_read = NULL;
@@ -41,6 +41,9 @@ static int cmd_si(char *args);
 static int cmd_info(char *args);
 static int cmd_x(char *args);
 static int cmd_p(char *args);
+static int cmd_w(char *args);
+static int cmd_d(char *args);
+static int cmd_b(char *args);
 static struct {
 	char *name;
 	char *description;
@@ -53,11 +56,47 @@ static struct {
 	{ "info","Print register status OR Print Monitor Point Information",cmd_info},
 	{ "x","Scanning memory",cmd_x},
 	{ "p","printf",cmd_p},
+	{ "w","Monitor the value of the expression and pause if changed",cmd_w},
+	{ "d","delete watchpoint",cmd_d},
+	{ "b","set breakpoint",cmd_b},
 
 
 	/* TODO: Add more commands */
 
 };
+static int cmd_w(char *args)
+{
+	WP *f;
+	f = new_wp(args);
+	printf("Watchpoint %d:%s\n",f->NO,args);
+	return 0;
+}
+
+static int cmd_d(char *args)
+{
+	int num;
+	sscanf(args,"%d",&num);
+	delete_wp(num);
+	return 0;
+}
+
+static int cmd_b(char *args)
+{
+	bool suc;
+	swaddr_t addr;
+	addr = expr(args+1,&suc);
+	if(!suc)assert(1);
+	sprintf(args,"$eip == 0x%x",addr);
+	printf("Breakpoint %d at 0x%x\n",breakpoint_counter,addr);
+	WP *f;	
+	f=new_wp(args);
+	f->b = breakpoint_counter;
+	breakpoint_counter++;
+	return 0;
+	
+}
+
+
 static int cmd_p(char *args)
 {
 	int num;
@@ -108,6 +147,11 @@ static int cmd_info(char *args)
 			printf("%c%s %c%x\n",a,regsl[i],a,cpu.gpr[i]._32);
 
 		}
+	
+	}
+	if(strcmp(zhiling,"w")==0)
+	{
+		info_wp();
 	}
 	return 0;
 }
