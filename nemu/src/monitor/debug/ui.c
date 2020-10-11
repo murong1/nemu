@@ -103,7 +103,7 @@ static int cmd_p(char *args)
 	bool suc;
 	num = expr(args,&suc);
 	if(suc)
-		printf("%d\n",num);
+		printf("%x %d\n",num,num);
 	return 0;
 }
 
@@ -175,7 +175,7 @@ static int cmd_x(char *args)
 	swaddr_t addr;
 	bool suc;
 	addr = expr(args,&suc);
-	printf("%08x",addr);
+	printf("%08x\n",addr);
 	if(suc)
 	{
 	//sscanf(EXPR,"%x",&addr);
