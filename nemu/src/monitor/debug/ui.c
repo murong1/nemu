@@ -175,7 +175,7 @@ static int cmd_x(char *args)
 	swaddr_t addr;
 	bool suc;
 	addr = expr(zhiling,&suc);
-	printf("%08x\n",addr);
+	printf("%08x\n %s",addr,zhiling);
 	if(suc)
 	{
 	//sscanf(EXPR,"%x",&addr);
