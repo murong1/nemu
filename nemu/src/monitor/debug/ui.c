@@ -144,7 +144,7 @@ static int cmd_info(char *args)
 		char a='%';
 		for (i=0;i<8;i++)
 		{
-			printf("%c%s %c%x\n",a,regsl[i],a,cpu.gpr[i]._32);
+			printf("%c%s 0x%x\n",a,regsl[i],cpu.gpr[i]._32);
 
 		}
 	
