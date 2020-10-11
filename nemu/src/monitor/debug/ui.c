@@ -103,7 +103,7 @@ static int cmd_p(char *args)
 	bool suc;
 	num = expr(args,&suc);
 	if(suc)
-		printf("%x %d\n",num,num);
+		printf("%d\n",num);
 	return 0;
 }
 
