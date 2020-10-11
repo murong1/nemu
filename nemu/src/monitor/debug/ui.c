@@ -173,11 +173,11 @@ static int cmd_x(char *args)
 	}
 
 	swaddr_t addr;
-	//bool suc;
-	//addr = expr(zhiling,&suc);
-	//printf("%08x\n %s\n",addr,zhiling);
-	//if(suc)
-	//{
+	bool suc;
+	addr = expr(EXPR,&suc);
+	printf("%08x\n %s\n",addr,zhiling);
+	if(suc)
+	{
 	sscanf(EXPR,"%x",&addr);
 	printf("0x%x:",addr);
 	int i=0;
@@ -188,7 +188,7 @@ static int cmd_x(char *args)
 		
 	}
 	printf("\n");
-	//}
+	}
 	return 0;
 }
 
