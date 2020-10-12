@@ -30,6 +30,8 @@ WP* new_wp(char* string)
 	strcpy(new_wp->str,string);
 	bool success;
 	new_wp->new_val = expr(string,&success);
+	if(!success) assert(0);
+	printf("value : %d\n",new_wp->new_val);
 
 	WP* p;
 	p = head;
@@ -80,6 +82,7 @@ void free_wp(WP *wp)
 			f->next = f->next->next;
 		else assert(0);
 	}
+	printf("Free %d\n",wp->NO);
 	wp->next=NULL;
 	wp->old_val=0;
 	wp->b=0;
