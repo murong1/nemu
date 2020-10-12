@@ -31,7 +31,7 @@ WP* new_wp(char* string)
 	bool success;
 	new_wp->new_val = expr(string,&success);
 	if(!success) assert(0);
-	printf("value : %d\n",new_wp->new_val);
+	printf("value : 0x%x\n",new_wp->new_val);
 
 	WP* p;
 	p = head;
@@ -46,6 +46,7 @@ WP* new_wp(char* string)
 			p = p->next;
 		p->next = new_wp;
 	}
+	new_wp->next = NULL;
 	return new_wp;
 	
 }
