@@ -140,7 +140,7 @@ void info_wp()
 	f = head;
 	while(f!=NULL)
 	{
-		printf("Watchpoint %d:  %s = %d\n",f->NO,f->str,f->new_val);
+		printf("Watchpoint %d:  %s = 0x%x\n",f->NO,f->str,f->new_val);
 		f=f->next;
 	}
 }
