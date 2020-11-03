@@ -2,15 +2,6 @@
 
 #define instr call
 
-static void do_execute() {
-	OPERAND_W(op_dest, op_src->val);
-	print_asm_template2();
-}
-
-make_instr_helper(i2r)
-make_instr_helper(i2rm)
-make_instr_helper(r2rm)
-make_instr_helper(rm2r)
 
 make_helper(concat(call_i_, SUFFIX)) {
 	int len = concat(decode_i_,SUFFIX)(cpu.eip + 1);

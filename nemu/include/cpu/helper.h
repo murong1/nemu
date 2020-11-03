@@ -26,5 +26,6 @@ extern Operands ops_decoded;
 #define op_src2 (&ops_decoded.src2)
 #define op_dest (&ops_decoded.dest)
 
-
+#define print_asm_no_template1() \
+	print_asm(str(instr)" %s", op_src->str)
 #endif
