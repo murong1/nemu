@@ -9,7 +9,7 @@
 #include "jump/je.h"
 #include "cmp/cmp.h"
 #include "pop/pop.h"
-//#include "ret/ret.h"
+#include "ret/ret.h"
 #include "data-mov/mov.h"
 #include "data-mov/xchg.h"
 #include "data-mov/movext.h"
