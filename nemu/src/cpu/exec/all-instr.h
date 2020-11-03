@@ -4,6 +4,8 @@
 
 #include  "push/push.h"
 
+#include "test/test.h"
+
 #include "data-mov/mov.h"
 #include "data-mov/xchg.h"
 #include "data-mov/movext.h"
