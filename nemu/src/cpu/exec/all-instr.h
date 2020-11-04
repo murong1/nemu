@@ -12,6 +12,9 @@
 #include "contrain/call.h"
 #include "contrain/je.h"
 #include "contrain/jmp.h"
+#include "contrain/jbe.h"
+#include  "contrain/jne.h"
+#include "contrain/ja.h"
 
 #include "data-mov/mov.h"
 #include "data-mov/xchg.h"
