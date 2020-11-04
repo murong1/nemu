@@ -28,9 +28,6 @@
 #include "data-mov/pop.h"
 #include "data-mov/push.h"
 
-
-
-
 #include "arith/dec.h"
 #include "arith/inc.h"
 #include "arith/neg.h"
@@ -55,10 +52,7 @@
 #include "logic/sete.h"
 #include "logic/setne.h"
 #include "logic/test.h"
-
 #include "string/rep.h"
-
 #include "misc/misc.h"
 #include "cl/clc.h"
-
 #include "special/special.h"
