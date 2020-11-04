@@ -1,16 +1,17 @@
 #include "prefix/prefix.h"
 
-#include  "call/call.h"
-
 #include  "push/push.h"
 
 #include "test/test.h"
 
-#include "jump/je.h"
+
 #include "cmp/cmp.h"
 #include "pop/pop.h"
 #include "ret/ret.h"
 
+#include "contrain/call.h"
+#include "contrain/je.h"
+#include "contrain/jmp.h"
 
 #include "data-mov/mov.h"
 #include "data-mov/xchg.h"

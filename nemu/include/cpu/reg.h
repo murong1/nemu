@@ -75,7 +75,31 @@ typedef struct {
 		uint32_t eflags;
 		};
      };
+
 	bool INTR;
+
+	struct GDTR{
+		uint32_t base_addr;
+		uint16_t seg_limit;
+	}gdtr;
+	
+	struct IDTR{
+		uint32_t base_addr;
+		uint16_t seg_limit;
+	}idtr;
+	CR0 cr0;
+	CR3 cr3;
+
+	union {
+        	struct SREG sr[6];
+        	struct 
+        	{
+            struct SREG es, cs, ss, ds, fs, gs;
+        	};
+};
+
+
+
 } CPU_state;
 
 extern CPU_state cpu;
@@ -94,6 +118,34 @@ union {
             struct SREG es, cs, ss, ds, fs, gs;
         	};
 };*/
+
+
+typedef struct {
+	union {
+		struct {
+			uint32_t seg_limit1	:16;
+			uint32_t seg_base1	:16;
+		};
+		uint32_t first_part;
+	};
+	union {
+		struct {
+			uint32_t seg_base2 	:8;
+			uint32_t type		:5;
+			uint32_t dpl		:2;
+			uint32_t p		:1;
+			uint32_t seg_limit2	:4;
+			uint32_t avl		:1;
+			uint32_t 		:1;
+			uint32_t b		:1;
+			uint32_t g		:1;
+			uint32_t seg_base3	:8;
+		};
+		uint32_t second_part;
+	};
+}SEG_descriptor;
+
+SEG_descriptor *seg_des;
 
 #define reg_l(index) (cpu.gpr[check_reg_index(index)]._32)
 #define reg_w(index) (cpu.gpr[check_reg_index(index)]._16)
