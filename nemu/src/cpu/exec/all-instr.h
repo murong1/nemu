@@ -10,7 +10,8 @@
 #include "cmp/cmp.h"
 #include "pop/pop.h"
 #include "ret/ret.h"
-#include "add/add.h"
+
+
 #include "data-mov/mov.h"
 #include "data-mov/xchg.h"
 #include "data-mov/movext.h"
@@ -24,6 +25,10 @@
 #include "arith/mul.h"
 #include "arith/idiv.h"
 #include "arith/div.h"
+#include "arith/add.h"
+#include "arith/adc.h"
+#include "arith/sbb.h"
+#include "arith/sub.h"
 
 #include "logic/and.h"
 #include "logic/or.h"
