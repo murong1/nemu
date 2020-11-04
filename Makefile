@@ -52,10 +52,10 @@ clean: clean-cpp
 
 
 ##### some convinient rules #####
-
-USERPROG := obj/testcase/mov-c
+###############################################
+USERPROG := obj/testcase/add
 ENTRY := $(USERPROG)
-
+###############################################
 entry: $(ENTRY)
 	objcopy -S -O binary $(ENTRY) entry
 
