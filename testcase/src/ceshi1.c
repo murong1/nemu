@@ -2,9 +2,8 @@
 
 int main()
 {
-    int loop;
-    loop = 2;
-    loop*=2;
-    nemu_assert(loop == 4);
+    int loop[2]={1,2};
+    int sum = loop[1]+loop[2];
+    nemu_assert(sum == 4);
     return 0;
 }
