@@ -7,6 +7,7 @@ int main()
    {
 
    }
+   nemu_assert(i == 0);
    nemu_assert(i == 1);
    nemu_assert(i == 2);
     nemu_assert(i == 3);
