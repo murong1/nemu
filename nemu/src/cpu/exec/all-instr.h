@@ -1,9 +1,5 @@
 #include "prefix/prefix.h"
-#include  "push/push.h"
-#include "test/test.h"
-#include "cmp/cmp.h"
-#include "pop/pop.h"
-#include "ret/ret.h"
+//#include "cmp/cmp.h"
 
 #include "contrain/call.h"
 #include "contrain/je.h"
@@ -23,12 +19,17 @@
 #include "contrain/jns.h"
 #include "contrain/jp.h"
 #include "contrain/jnp.h"
+#include "contrain/ret.h"
+
 
 #include "data-mov/mov.h"
 #include "data-mov/xchg.h"
 #include "data-mov/movext.h"
-#include "data-mov/cltd.h"
-#include "data-mov/leave.h"
+#include "data-mov/pop.h"
+#include "data-mov/push.h"
+
+
+
 
 #include "arith/dec.h"
 #include "arith/inc.h"
@@ -41,6 +42,7 @@
 #include "arith/adc.h"
 #include "arith/sbb.h"
 #include "arith/sub.h"
+#include "arith/cmp.h"
 
 #include "logic/and.h"
 #include "logic/or.h"
@@ -52,6 +54,7 @@
 #include "logic/shrd.h"
 #include "logic/sete.h"
 #include "logic/setne.h"
+#include "logic/test.h"
 
 #include "string/rep.h"
 
