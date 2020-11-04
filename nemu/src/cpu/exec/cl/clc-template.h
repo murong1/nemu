@@ -1,7 +1,7 @@
 #include "cpu/exec/template-start.h"
 
 
-make_helper(cld) {
+make_helper(clc) {
 	cpu.CF = 0;
 	print_asm("clc");
 	return 1;
