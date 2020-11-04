@@ -2,8 +2,12 @@
 
 int main()
 {
-    int loop[2]={1,2};
-    int sum = loop[1]+loop[0];
-    nemu_assert(sum == 3);
+    int  i;
+   for( i=0;i<5;i++)
+   {
+
+   }
+  nemu_assert(i==4);
+
     return 0;
 }
