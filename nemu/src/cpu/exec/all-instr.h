@@ -14,7 +14,11 @@
 #include "contrain/jmp.h"
 #include "contrain/jbe.h"
 #include  "contrain/jne.h"
+#include "contrain/jge.h"
+#include  "contrain/jl.h"
 #include "contrain/ja.h"
+#include "contrain/jle.h"
+#include "contrain/jg.h"
 
 #include "data-mov/mov.h"
 #include "data-mov/xchg.h"
