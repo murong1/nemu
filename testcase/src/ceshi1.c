@@ -9,8 +9,7 @@ int main()
    }
   
    nemu_assert(i == 2);
-    nemu_assert(i == 3);
-    nemu_assert(i == 4);
+    
 
     return 0;
 }
