@@ -5,9 +5,15 @@
 static void do_execute () {
 	DATA_TYPE result = op_src->val - 1;
 	OPERAND_W(op_src, result);
-
+	concat(updateCPU_,SUFFIX)(result);
+	cpu.eflags.CF=op_src->val<1;
+	int t1,t2;
+	int len=(DATA_BYTE<<3)-1;
+	t1=op_src->val>>len;
+	t2=0;
+	cpu.eflags.OF=(t1!=t2&&t2==cpu.eflags.SF);
 	/* TODO: Update EFLAGS. */
-	panic("please implement me");
+	//panic("please implement me");
 
 	print_asm_template1();
 }

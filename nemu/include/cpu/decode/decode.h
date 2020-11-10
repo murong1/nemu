@@ -39,6 +39,9 @@ make_helper(decode_rm2r_l);
 make_helper(decode_rm2a_b);
 make_helper(decode_rm2a_w);
 make_helper(decode_rm2a_l);
+make_helper(decode_no_rm2r_b);
+make_helper(decode_no_rm2r_w);
+make_helper(decode_no_rm2r_l);
 
 make_helper(decode_rm_1_b);
 make_helper(decode_rm_1_w);
@@ -49,6 +52,9 @@ make_helper(decode_rm_cl_l);
 make_helper(decode_rm_imm_b);
 make_helper(decode_rm_imm_w);
 make_helper(decode_rm_imm_l);
+make_helper(updateCPU_b);
+make_helper(updateCPU_w);
+make_helper(updateCPU_l);
 
 void write_operand_b(Operand *, uint8_t);
 void write_operand_w(Operand *, uint16_t);
