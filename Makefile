@@ -53,7 +53,7 @@ clean: clean-cpp
 
 ##### some convinient rules #####
 
-USERPROG := obj/testcase/printf-FLOAT.c
+USERPROG := obj/testcase/max.c
 #ENTRY := $(kernel_BIN)
 ENTRY := $(USERPROG)
 
