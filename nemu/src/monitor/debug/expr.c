@@ -1,3 +1,4 @@
+  
 #include "nemu.h"
 
 /* We use the POSIX regex functions to process regular expressions.
@@ -6,12 +7,12 @@
 #include <sys/types.h>
 #include <regex.h>
 #include <stdlib.h>
-
+uint32_t look_up_symtab(char*,bool*);
 enum {
 	NOTYPE = 256, EQ
 
 	/* TODO: Add more token types */
-        , NUM, NEQ, OR, AND, REG, REF, NEG
+        , NUM, NEQ, OR, AND, REG, VAR, REF, NEG
 };
 
 static struct rule {
@@ -28,7 +29,8 @@ static struct rule {
 	{"==", EQ},						// equal
 	{"0x[0-9a-fA-F]{1,8}", NUM},			// hex
 	{"[0-9]{1,10}", NUM},					// dec
-	{"\\$[a-z]{1,31}", REG},				// register names 
+	{"\\$[a-z]{1,31}", REG},			// register names 
+	{"[a-zA-Z_]{1,31}",VAR},				
 	{"-", '-'},
 	{"\\*", '*'},
 	{"/", '/'},
@@ -95,6 +97,7 @@ static bool make_token(char *e) {
 				switch(rules[i].token_type) {
                                         case NOTYPE: break;
                                         case NUM:
+					case VAR:
 					//default: panic("please implement me");
                                         case REG: sprintf(tokens[nr_token].str, "%.*s", substr_len, substr_start);
 					default: tokens[nr_token].type = rules[i].token_type;
@@ -138,7 +141,7 @@ static int find_dominated_op(int s, int e, bool *success) {
 	int dominated_op = -1;
 	for(i = s; i <= e; i ++) {
 		switch(tokens[i].type) {
-			case REG: case NUM: break;
+			case REG: case NUM: case VAR:break;
 
 			case '(': 
 				bracket_level ++; 
@@ -187,7 +190,9 @@ static uint32_t eval(int s, int e, bool *success) {
 					  break;
 
 			case NUM: val = strtol(tokens[s].str, NULL, 0); break;
-
+			case VAR: val=look_up_symtab(tokens[s].str,success);
+				if(!*success) return 0;
+				break;
 			default: assert(0);
 		}
 
@@ -256,7 +261,7 @@ uint32_t expr(char *e, bool *success) {
 			}
 
 			prev_type = tokens[i - 1].type;
-			if( !(prev_type == ')' || prev_type == NUM || prev_type == REG) ) {
+			if( !(prev_type == ')' || prev_type==VAR||prev_type == NUM || prev_type == REG) ) {
 				tokens[i].type = NEG;
 			}
 		}
@@ -268,7 +273,7 @@ uint32_t expr(char *e, bool *success) {
 			}
 
 			prev_type = tokens[i - 1].type;
-			if( !(prev_type == ')' || prev_type == NUM || prev_type == REG) ) {
+			if( !(prev_type == ')' || prev_type==VAR||prev_type == NUM || prev_type == REG) ) {
 				tokens[i].type = REF;
 			}
 		}
@@ -276,4 +281,3 @@ uint32_t expr(char *e, bool *success) {
 
 	return eval(0, nr_token - 1, success);
 }
-
