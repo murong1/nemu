@@ -1,2 +1,6 @@
 #include "trap.h"
-pritf("zuo");
+
+int main()
+{
+    printf("fjdksla");
+}
