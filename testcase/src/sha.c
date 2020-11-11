@@ -17,7 +17,7 @@ int main() {
 			k ++;
 		}
 	}
-
+	
 	nemu_assert(n == 500);
 	nemu_assert(k == 3);
 
